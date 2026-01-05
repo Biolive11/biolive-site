@@ -1,194 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BIOLIVE MLM Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>BIOLIVE MLM – Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #333;
-    }
-
-    header {
-      background: #0b4da2;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-    }
-
-    .container {
-      padding: 15px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-
-    .stats {
-      display: flex;
-      gap: 10px;
-    }
-
-    .stat {
-      flex: 1;
-      background: #eef3ff;
-      padding: 10px;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .stat h3 {
-      margin: 5px 0;
-      color: #0b4da2;
-    }
-
-    .tree {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .node {
-      background: #0b4da2;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 6px;
-      font-size: 14px;
-      margin: 5px;
-      animation: pop 0.5s ease;
-    }
-
-    .children {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      width: 200px;
-    }
-
-    @keyframes pop {
-      from {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    button {
-      background: #0b4da2;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    button:active {
-      transform: scale(0.97);
-    }
-
-    footer {
-      text-align: center;
-      font-size: 12px;
-      color: #777;
-      margin-top: 20px;
-    }
-  </style>
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f7fb;
+  color:#333;
+}
+header{
+  background:#0b4da2;
+  color:#fff;
+  padding:18px;
+  text-align:center;
+}
+.container{
+  padding:15px;
+}
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+.stats{
+  display:flex;
+  gap:10px;
+}
+.stat{
+  flex:1;
+  background:#eef3ff;
+  padding:12px;
+  border-radius:10px;
+  text-align:center;
+}
+.stat h2{margin:5px 0;color:#0b4da2}
+.tree{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.node{
+  background:#0b4da2;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:8px;
+  margin:5px;
+  animation:pop .4s ease;
+}
+.children{
+  display:flex;
+  gap:40px;
+  margin-top:10px;
+}
+button{
+  background:#0b4da2;
+  color:#fff;
+  border:none;
+  padding:12px 16px;
+  border-radius:8px;
+  margin:5px;
+  font-size:15px;
+}
+button:active{transform:scale(.97)}
+.income{
+  display:flex;
+  gap:10px;
+}
+.income div{
+  flex:1;
+  background:#eef3ff;
+  padding:12px;
+  border-radius:10px;
+  text-align:center;
+}
+@keyframes pop{
+  from{transform:scale(.5);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+footer{
+  text-align:center;
+  padding:15px;
+  font-size:14px;
+  color:#777;
+}
+</style>
 </head>
+
 <body>
 
 <header>
   <h1>BIOLIVE MLM – Dashboard</h1>
-  <p>Welcome, Demo User</p>
+  <p id="welcome"></p>
 </header>
 
 <div class="container">
 
-  <!-- Stats -->
-  <div class="card">
-    <h2>Binary Summary</h2>
-    <div class="stats">
-      <div class="stat">
-        <div>Left</div>
-        <h3 id="leftCount">0</h3>
-      </div>
-      <div class="stat">
-        <div>Right</div>
-        <h3 id="rightCount">0</h3>
-      </div>
-      <div class="stat">
-        <div>Pairs</div>
-        <h3 id="pairCount">0</h3>
-      </div>
+<!-- LOGIN -->
+<div class="card">
+  <h3>User Login (Demo)</h3>
+  <input id="usernameInput" placeholder="Enter your name"
+   style="padding:10px;width:70%">
+  <button onclick="saveUser()">Login</button>
+</div>
+
+<!-- SUMMARY -->
+<div class="card">
+  <h3>Binary Summary</h3>
+  <div class="stats">
+    <div class="stat">Left<br><h2 id="left">0</h2></div>
+    <div class="stat">Right<br><h2 id="right">0</h2></div>
+    <div class="stat">Pairs<br><h2 id="pairs">0</h2></div>
+  </div>
+</div>
+
+<!-- TREE -->
+<div class="card">
+  <h3>Binary Tree (Auto Demo)</h3>
+  <div class="tree">
+    <div class="node">YOU</div>
+    <div class="children">
+      <div class="node" id="L">L</div>
+      <div class="node" id="R">R</div>
     </div>
   </div>
 
-  <!-- Tree -->
-  <div class="card">
-    <h2>Binary Tree (Auto Demo)</h2>
+  <button onclick="startDemo()">Start Auto Demo</button>
+  <button onclick="presentation()">Presentation Mode</button>
+</div>
 
-    <div class="tree">
-      <div>
-        <div class="node">YOU</div>
-        <div class="children">
-          <div class="node" id="leftNode">L</div>
-          <div class="node" id="rightNode">R</div>
-        </div>
-      </div>
-    </div>
-
-    <br>
-    <button onclick="autoAdd()">Start Auto Demo</button>
-    <button onclick="fullscreen()">Presentation Mode</button>
+<!-- INCOME -->
+<div class="card">
+  <h3>Level Income (Demo)</h3>
+  <div class="income">
+    <div>Level-1<br><h2 id="lvl1">0</h2></div>
+    <div>Level-2<br><h2 id="lvl2">0</h2></div>
   </div>
+</div>
 
 </div>
 
 <footer>
-  © 2026 BIOLIVE MLM – Demo System
+© 2026 BIOLIVE MLM – Demo System
 </footer>
 
 <script>
-  let left = 0;
-  let right = 0;
+let left=0,right=0,lvl1=0,lvl2=0;
 
-  function autoAdd() {
-    if (left <= right) {
-      left++;
-      document.getElementById("leftNode").innerText = "L" + left;
-    } else {
-      right++;
-      document.getElementById("rightNode").innerText = "R" + right;
-    }
-
-    document.getElementById("leftCount").innerText = left;
-    document.getElementById("rightCount").innerText = right;
-
-    let pairs = Math.min(left, right);
-    document.getElementById("pairCount").innerText = pairs;
+function saveUser(){
+  let u=document.getElementById("usernameInput").value;
+  if(u){
+    localStorage.setItem("user",u);
+    loadUser();
   }
+}
+function loadUser(){
+  let u=localStorage.getItem("user")||"Demo User";
+  document.getElementById("welcome").innerText="Welcome, "+u;
+}
+loadUser();
 
-  function fullscreen() {
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    }
+function startDemo(){
+  let interval=setInterval(()=>{
+    if(Math.random()>0.5){left++;lvl1+=50;}
+    else{right++;lvl1+=50;}
+
+    let pairs=Math.min(left,right);
+    lvl2=pairs*100;
+
+    document.getElementById("left").innerText=left;
+    document.getElementById("right").innerText=right;
+    document.getElementById("pairs").innerText=pairs;
+    document.getElementById("lvl1").innerText=lvl1;
+    document.getElementById("lvl2").innerText=lvl2;
+
+    if(left+right>=10) clearInterval(interval);
+  },1000);
+}
+
+function presentation(){
+  if(document.documentElement.requestFullscreen){
+    document.documentElement.requestFullscreen();
   }
+}
 </script>
 
 </body>
