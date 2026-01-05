@@ -1,48 +1,36 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>BIOLIVE Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{font-family:Arial;background:#f4f7fb;display:flex;
-justify-content:center;align-items:center;height:100vh;}
-.box{
-background:#fff;padding:25px;border-radius:12px;
-box-shadow:0 4px 12px rgba(0,0,0,.1);width:300px;
-}
-input,button{
-width:100%;padding:12px;margin-top:10px;
-border-radius:8px;border:1px solid #ccc;
-}
-button{background:#0b4da2;color:#fff;border:none;}
-</style>
+<title>BIOLIVE Sign Up</title>
 </head>
 <body>
 
-<div class="box">
-<h2>BIOLIVE Login</h2>
-<input id="user" placeholder="Username">
-<input id="pass" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
+<h2>Sign Up</h2>
+
+<input id="name" placeholder="Full Name"><br><br>
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+
+<button onclick="signup()">Create Account</button>
 <p id="msg"></p>
-</div>
 
+<script src="firebase.js"></script>
 <script>
-function login(){
-  let u=user.value;
-  let p=pass.value;
+function signup(){
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("password").value;
 
-  // demo users
-  if(
-    (u=="admin" && p=="1234") ||
-    (u=="demo" && p=="1111")
-  ){
-    localStorage.setItem("login",u);
-    window.location="dashboard.html";
-  }else{
-    msg.innerText="Invalid login";
-    msg.style.color="red";
-  }
+  firebase.auth().createUserWithEmailAndPassword(email, pass)
+  .then(res=>{
+    firebase.database().ref("users/"+res.user.uid).set({
+      name:name,
+      email:email
+    });
+    location="dashboard.html";
+  })
+  .catch(err=>msg.innerText=err.message);
 }
 </script>
 
