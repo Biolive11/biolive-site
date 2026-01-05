@@ -1,36 +1,26 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>BIOLIVE Sign Up</title>
+<title>BIOLIVE Login</title>
 </head>
 <body>
 
-<h2>Sign Up</h2>
+<h2>Login</h2>
 
-<input id="name" placeholder="Full Name"><br><br>
 <input id="email" placeholder="Email"><br><br>
 <input id="password" type="password" placeholder="Password"><br><br>
 
-<button onclick="signup()">Create Account</button>
+<button onclick="login()">Login</button>
 <p id="msg"></p>
 
 <script src="firebase.js"></script>
 <script>
-function signup(){
-  let name = document.getElementById("name").value;
-  let email = document.getElementById("email").value;
-  let pass = document.getElementById("password").value;
-
-  firebase.auth().createUserWithEmailAndPassword(email, pass)
-  .then(res=>{
-    firebase.database().ref("users/"+res.user.uid).set({
-      name:name,
-      email:email
-    });
-    location="dashboard.html";
-  })
-  .catch(err=>msg.innerText=err.message);
+function login(){
+  firebase.auth().signInWithEmailAndPassword(
+    email.value, password.value
+  )
+  .then(()=>location="dashboard.html")
+  .catch(()=>msg.innerText="Invalid login");
 }
 </script>
 
