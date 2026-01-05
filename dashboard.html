@@ -1,10 +1,23 @@
-<!DOCTYPE html>
+<!DOCTYPE html><h2 id="welcome"></h2>
 <html lang="en">
-<head>
+<head><script>
+let user = localStorage.getItem("login");
+
+if(!user){
+  window.location = "login.html";
+}
+
+document.getElementById("welcome").innerText = "Welcome, " + user;
+</script>
 <meta charset="UTF-8">
 <title>BIOLIVE MLM – Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<script>
+let user = localStorage.getItem("login");
+if(!user){
+  window.location="login.html";
+}
+</script>
 <style>
 body{
   margin:0;
