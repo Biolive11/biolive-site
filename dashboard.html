@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BIOLIVE MLM Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #333;
+    }
+
+    header {
+      background: #0b4da2;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .stats {
+      display: flex;
+      gap: 10px;
+    }
+
+    .stat {
+      flex: 1;
+      background: #eef3ff;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat h3 {
+      margin: 5px 0;
+      color: #0b4da2;
+    }
+
+    .tree {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .node {
+      background: #0b4da2;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin: 5px;
+      animation: pop 0.5s ease;
+    }
+
+    .children {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      width: 200px;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    button {
+      background: #0b4da2;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>BIOLIVE MLM – Dashboard</h1>
+  <p>Welcome, Demo User</p>
+</header>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="card">
+    <h2>Binary Summary</h2>
+    <div class="stats">
+      <div class="stat">
+        <div>Left</div>
+        <h3 id="leftCount">0</h3>
+      </div>
+      <div class="stat">
+        <div>Right</div>
+        <h3 id="rightCount">0</h3>
+      </div>
+      <div class="stat">
+        <div>Pairs</div>
+        <h3 id="pairCount">0</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tree -->
+  <div class="card">
+    <h2>Binary Tree (Auto Demo)</h2>
+
+    <div class="tree">
+      <div>
+        <div class="node">YOU</div>
+        <div class="children">
+          <div class="node" id="leftNode">L</div>
+          <div class="node" id="rightNode">R</div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <button onclick="autoAdd()">Start Auto Demo</button>
+    <button onclick="fullscreen()">Presentation Mode</button>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 BIOLIVE MLM – Demo System
+</footer>
+
+<script>
+  let left = 0;
+  let right = 0;
+
+  function autoAdd() {
+    if (left <= right) {
+      left++;
+      document.getElementById("leftNode").innerText = "L" + left;
+    } else {
+      right++;
+      document.getElementById("rightNode").innerText = "R" + right;
+    }
+
+    document.getElementById("leftCount").innerText = left;
+    document.getElementById("rightCount").innerText = right;
+
+    let pairs = Math.min(left, right);
+    document.getElementById("pairCount").innerText = pairs;
+  }
+
+  function fullscreen() {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    }
+  }
+</script>
+
+</body>
+</html>
